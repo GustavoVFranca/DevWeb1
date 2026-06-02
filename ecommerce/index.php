@@ -11,7 +11,7 @@ if (!in_array($pagina, $paginas_validas)) {
 <head>
     <meta charset="UTF-8">
     <title>Minha Loja</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
