@@ -15,7 +15,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 }
 
 switch ($acao) {
-    case 'Salvar':
+    case 'salvar':
         salvar();
         break;
     case 'Alterar':
