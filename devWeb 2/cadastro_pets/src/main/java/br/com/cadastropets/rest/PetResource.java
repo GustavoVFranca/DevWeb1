@@ -21,11 +21,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-/**
- * Nao usamos EJB (@Stateless) aqui de proposito: como a nossa persistence-unit
- * e RESOURCE_LOCAL (mais simples, sem precisar cadastrar data source no
- * servidor), a gente mesmo cria e fecha o EntityManager em cada operacao.
- */
 @Path("pets")
 public class PetResource {
 
