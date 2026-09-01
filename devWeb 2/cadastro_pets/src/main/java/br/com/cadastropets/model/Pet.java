@@ -11,10 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
 
-/**
- * Classe base de todos os animais. E abstrata porque nao faz sentido
- * cadastrar um "Pet" puro, sempre vai ser um Cachorro, Gato ou Coelho.
- */
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_pet", discriminatorType = DiscriminatorType.STRING)
@@ -42,9 +39,6 @@ public abstract class Pet implements Serializable {
         this.nome = nome;
     }
 
-    /**
-     * Cada tipo de animal decide qual som ele faz.
-     */
     @Transient
     public abstract String emitirSom();
 }

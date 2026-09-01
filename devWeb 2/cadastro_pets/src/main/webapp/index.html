@@ -113,7 +113,6 @@
         const lista = document.getElementById('lista');
         const mensagem = document.getElementById('mensagem');
 
-        // troque a URL abaixo se o nome do contexto do seu app for diferente
         const BASE_URL = 'rest/pets';
 
         async function carregarPets() {
@@ -121,7 +120,9 @@
                 const resposta = await fetch(BASE_URL);
                 const pets = await resposta.json();
                 lista.innerHTML = '';
-                pets.forEach(pet => {
+
+                for (let i = 0; i < pets.length; i++) {
+                    const pet = pets[i];
                     const li = document.createElement('li');
                     li.innerHTML = `
                         <div class="pet-info">
@@ -131,7 +132,7 @@
                         <button class="remover" data-id="${pet.id}">remover</button>
                     `;
                     lista.appendChild(li);
-                });
+                }
             } catch (erro) {
                 mensagem.textContent = 'Nao consegui conectar com o servidor. Ele esta rodando?';
             }
@@ -145,11 +146,18 @@
             if (!nome) return;
 
             try {
-                const resposta = await fetch(`${BASE_URL}/${tipo}`, {
+                const url = BASE_URL + '/' + tipo;
+
+                const dados = { nome: nome };
+                const dadosEmTexto = JSON.stringify(dados);
+
+                const configuracao = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nome })
-                });
+                    body: dadosEmTexto
+                };
+
+                const resposta = await fetch(url, configuracao);
 
                 if (!resposta.ok) {
                     throw new Error('Falha ao cadastrar');
@@ -164,9 +172,15 @@
         });
 
         lista.addEventListener('click', async (evento) => {
-            if (evento.target.classList.contains('remover')) {
-                const id = evento.target.getAttribute('data-id');
-                await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' });
+            const elementoClicado = evento.target;
+            const ehBotaoRemover = elementoClicado.classList.contains('remover');
+
+            if (ehBotaoRemover) {
+                const id = elementoClicado.getAttribute('data-id');
+                const url = BASE_URL + '/' + id;
+                const configuracao = { method: 'DELETE' };
+
+                await fetch(url, configuracao);
                 carregarPets();
             }
         });

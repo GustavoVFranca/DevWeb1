@@ -1,9 +1,5 @@
 package br.com.cadastropets.dto;
 
-/**
- * Objeto simples so pra conversar com o front-end (evita expor a entidade
- * JPA direto e problemas de serializar classes abstratas em JSON).
- */
 public class PetDTO {
 
     private Integer id;
